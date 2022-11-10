@@ -13,8 +13,13 @@ function getDataFromSpreadsheet() {
 }
 
 function buildPayload(data) {
-  const schedulingDemands = data.slice(1).map(row => {
-    const message = `*${row[1]}*\n${row[0]}\n${row[2]} to ${row[3]}`
+  const schedulingDemands = data.slice(1).map(column => {
+    const account = column[0];
+    const assignment_demand = column[1];
+    const start_date = column[2].toLocaleDateString();
+    const end_date = column[3].toLocaleDateString();
+
+    const message = `*${assignment_demand}*\n${account}\n${start_date} to ${end_date}`
     return message
   }).join("\n\n");
 
