@@ -1,7 +1,9 @@
 function start() {
   const data = getDataFromSpreadsheet();
   const payload = buildPayload(data);
-  sendSlackMessage(payload);
+  payload.forEach((message) => {
+    sendSlackMessage(message);
+  })
 }
 
 function getDataFromSpreadsheet() {
@@ -13,6 +15,7 @@ function getDataFromSpreadsheet() {
 }
 
 function buildPayload(data) {
+
   const schedulingDemands = data.slice(1).map(column => {
     const account = column[0];
     const assignment_demand = column[1];
@@ -21,9 +24,9 @@ function buildPayload(data) {
 
     const message = `*${assignment_demand}*\n${account}\n${start_date} to ${end_date}`
     return message
-  }).join("\n\n");
+  });
 
-  const payload = {
+  const payload_header = {
     "blocks": [
       {
         "type": "section",
@@ -31,20 +34,27 @@ function buildPayload(data) {
           "type": "mrkdwn",
           "text": ":bell: *Hello here are the latest billable roles we are looking to fill:* :bell:"
         }
-      },
-      {
-        "type": "divider"
-      },
-      {
-        "type": "section",
-        "text": {
-          "type": "mrkdwn",
-          "text": schedulingDemands
-        }
       }
     ]
-  }
-  return payload;
+  };
+
+  let payload_messages = [payload_header]
+
+  schedulingDemands.forEach((demand) => {
+    payload_messages.push({
+      "blocks": [
+        {
+          "type": "section",
+          "text": {
+            "type": "mrkdwn",
+            "text": demand
+          }
+        }
+      ]
+    });
+  })
+
+  return payload_messages;
 }
 
 function sendSlackMessage(payload) {
