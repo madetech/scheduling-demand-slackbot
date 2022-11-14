@@ -40,9 +40,9 @@ function createMessages(data) {
     }
   }
 
-  const payload_header = buildBlock(":bell: *Hello here are the latest billable roles we are looking to fill:* :bell:");
+  const intro_message = buildBlock(":bell: *Hello, here are the latest billable roles we are looking to fill:*");
 
-  let messages = [payload_header]
+  let messages = [intro_message]
 
   schedulingDemands.forEach((demand) => {
     messages.push(buildBlock(demand));
