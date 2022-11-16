@@ -12,10 +12,22 @@ function sendAllMessages() {
   })
 }
 
+function validateColumnHeaders(range) {
+  const account = range.getCell(1, 1).getValue();
+  const assignment_demand = range.getCell(1, 1).getValue();
+  const start_date = range.getCell(1, 2).getValue();
+  const end_date = range.getCell(1, 3).getValue();
+
+  if (!account.includes('Account')) {
+    throw new Error( "There is a problem with the spreadsheet" );
+  }
+}
+
 function getDataFromSpreadsheet() {
   const activeSpreadsheet = SpreadsheetApp.getActive();
   const firstSheet = activeSpreadsheet.getSheets()[0];
   const range = firstSheet.getDataRange();
+  validateColumnHeaders(range);
   const values = range.getValues();
   return values;
 }
