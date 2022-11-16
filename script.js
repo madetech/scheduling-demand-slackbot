@@ -1,3 +1,9 @@
+function onOpen(e) {
+  SpreadsheetApp.getUi().createAddonMenu()
+    .addItem('Send to Slack', 'sendAllMessages')
+    .addToUi();
+}
+
 function sendAllMessages() {
   const spreadsheetContent = getDataFromSpreadsheet();
   const messages = createMessages(spreadsheetContent);
