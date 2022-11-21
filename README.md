@@ -1,6 +1,6 @@
 # scheduling-demand-slackbot
 
-Google Apps Script that gets data from a google spreadsheet, transforms it to create a Slackbot payload and sends one alert per row.
+Google Apps Script project that gets data from a google spreadsheet, transforms it to create a Slackbot payload and sends one alert per row. It has also been published as a private Sheets Add-on in a Google Cloud Project and is available for Made Tech users through the Google Workspace Marketplace.
 
 // TO DO - add table of contents
 
@@ -41,7 +41,27 @@ You will also need to enable the Google Apps Script API because that’s what cl
 // TO DO
 
 ### Code changes and deployment
-// TO DO
+In order to make a change to the script please follow the steps below:
+1. make the code change in your local environment,
+2. push the changes to AppScript with `clasp push` (this will allow you run the code & see the change in action),
+3. make a commit & push to github.
+
+In oder to deploy the change please follow the steps below:
+1. create a new version in the app scripts:
+   1. open the app scripts,
+   2. click the arrow on the deploy button,
+   3. select 'Manage deployments',
+   4. click the pencil icon to go into the edit mode,
+   5. select the 'New version' in the 'Version' dropdown,
+   6. click 'deploy',
+   7. click 'done',
+2. Update the version in the google cloud project:
+   1. go to the google cloud project,
+   2. put 'workspace marketplace SDK' in the search box at the top & navigate to it,
+   3. click 'Manage',
+   4. go to 'APP CONFIGURATION',
+   5. put the new version in the 'Sheets Add-on script version' section,
+   6. click 'save'.
 
 ## User's guide
 // TO DO
