@@ -14,12 +14,17 @@ function sendAllMessages() {
 
 function validateColumnHeaders(range) {
   const account = range.getCell(1, 1).getValue();
-  const assignment_demand = range.getCell(1, 1).getValue();
-  const start_date = range.getCell(1, 2).getValue();
-  const end_date = range.getCell(1, 3).getValue();
+  const assignment_demand = range.getCell(1, 2).getValue();
+  const start_date = range.getCell(1, 3).getValue();
+  const end_date = range.getCell(1, 4).getValue();
 
-  if (!account.includes('Account')) {
-    throw new Error( "There is a problem with the spreadsheet" );
+  if (
+    !account.includes('Account') ||
+    !assignment_demand.includes('Assignment Demand') ||
+    !start_date.includes('Start Date') ||
+    !end_date.includes('End Date')
+    ) {
+    throw new Error("There is a problem with the table headers");
   }
 }
 
