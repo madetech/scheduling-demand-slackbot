@@ -63,7 +63,7 @@ function createMessages(data) {
     }
   }
 
-  const intro_message = buildBlock(":bell: *Hello, here are the latest billable roles we are looking to fill:*");
+  const intro_message = buildBlock(":bell: *Hello, here are the latest billable roles we are looking to fill. Please reply in the relevant thread if you're interested in a particular role.*");
 
   let messages = [intro_message]
 
