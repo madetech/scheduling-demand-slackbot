@@ -5,7 +5,15 @@ Google Apps Script project that gets data from a google spreadsheet, transforms 
 // TO DO - add table of contents
 
 ## How it works
-// TO DO
+When a spreadsheet is opened, this script adds an item to the add-on menu at: Extensions > Scheduling Demand Slackbot > Send to Slack.
+
+Clicking on `Send to Slack` triggers the following flow:
+1. Read and store spreadsheet data.
+2. Check that the column headers and column order are as expected (see below). Exit and throw an error if not.
+3. Read spreadsheet data.
+4. Format the data for each row into a message string.
+5. Create a JSON payload for each message using [Slack message blocks](https://api.slack.com/messaging/composing/layouts#adding-blocks).
+6. For each message call the Slackbot webhookUrl with the relevant payload. This will send a message for each role in the slack channel.
 
 ### Column order of spreadsheet
 
@@ -43,19 +51,19 @@ You will also need to enable the Google Apps Script API because that’s what cl
 ### Code changes and deployment
 In order to make a change to the script please follow the steps below:
 1. make the code change in your local environment,
-2. push the changes to AppScript with `clasp push` (this will allow you run the code & see the change in action),
+2. push the changes to AppScript with `clasp push` (this will allow you to run the code and see the change in action),
 3. make a commit & push to github.
 
 In oder to deploy the change please follow the steps below:
-1. create a new version in the app scripts:
+1. create a new version in the App Scripts:
    1. open the app scripts,
-   2. click the arrow on the deploy button,
+   2. click the arrow on the 'Deploy' button,
    3. select 'Manage deployments',
    4. click the pencil icon to go into the edit mode,
    5. select the 'New version' in the 'Version' dropdown,
    6. click 'deploy',
    7. click 'done',
-2. Update the version in the google cloud project:
+2. Update the version in the Google Cloud project:
    1. go to the google cloud project,
    2. put 'workspace marketplace SDK' in the search box at the top & navigate to it,
    3. click 'Manage',
@@ -67,15 +75,15 @@ In oder to deploy the change please follow the steps below:
 // TO DO
 
 ### Set up
-The script only needs to be installed once. In order to do it, please follow the steps below:
-1. open a spreadsheet in google docs,
+The Add-On only needs to be installed once. In order to do it, please follow the steps below:
+1. open a spreadsheet in Google Docs,
 2. open 'Extensions' > 'Add-ons' > 'Get add-ons' in the top menu,
 3. click 'Internal apps' button,
 4. click 'Scheduling Demand Slackbot',
 5. click 'Install' button,
 6. if prompted, click 'Continue' and give the permissions.
 
-This will install the script in your google docs. You can check if it's been installed by clicking on the 'Extensions' in the top menu. Now you should see 'Scheduling Demand Slackbot' menu item. If it doesn't show, please refresh the document and wait a few seconds.
+This will install the script in your google docs. You can check if it's been installed correctly by clicking on the 'Extensions' in the top menu. Now you should see 'Scheduling Demand Slackbot' menu item. If it doesn't show, please refresh the document and wait a few seconds.
 
 ### Running
 // TO DO
