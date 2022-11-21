@@ -67,7 +67,15 @@ In oder to deploy the change please follow the steps below:
 // TO DO
 
 ### Set up
-// TO DO
+The script only needs to be installed once. In order to do it, please follow the steps below:
+1. open a spreadsheet in google docs,
+2. open 'Extensions' > 'Add-ons' > 'Get add-ons' in the top menu,
+3. click 'Internal apps' button,
+4. click 'Scheduling Demand Slackbot',
+5. click 'Install' button,
+6. if prompted, click 'Continue' and give the permissions.
+
+This will install the script in your google docs. You can check if it's been installed by clicking on the 'Extensions' in the top menu. Now you should see 'Scheduling Demand Slackbot' menu item. If it doesn't show, please refresh the document and wait a few seconds.
 
 ### Running
 // TO DO
