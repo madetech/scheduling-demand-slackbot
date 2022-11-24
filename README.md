@@ -10,10 +10,9 @@ When a spreadsheet is opened, this script adds an item to the add-on menu at: **
 Clicking on **Send to Slack** triggers the following workflow:
 1. Read the data of the first sheet of the spreadsheet.
 2. Check that the column headers and column order are as expected ([see below](#column-order-of-spreadsheet)). Exit and throw an error if not.
-3. Read spreadsheet data.
-4. Format the data for each row into a message string.
-5. Create a JSON payload for each message using [Slack message blocks](https://api.slack.com/messaging/composing/layouts#adding-blocks).
-6. For each message call the Slackbot webhookUrl with the relevant payload. This will send a message for each role in the slack channel.
+3. Format the data for each row into a message `string`.
+4. Create a `JSON` payload for each message using [Slack message blocks](https://api.slack.com/messaging/composing/layouts#adding-blocks){:target="_blank"}.
+5. For each message call the Slackbot webhookUrl with the relevant payload. This will send a message for each role in the slack channel.
 
 ### Column order of spreadsheet
 
