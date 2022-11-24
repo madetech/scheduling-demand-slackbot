@@ -11,28 +11,38 @@ Clicking on **Send to Slack** triggers the following workflow:
 1. Read the data of the first sheet of the spreadsheet.
 2. Check that the column headers and column order are as expected ([see below](#column-order-of-spreadsheet)). Exit and throw an error if not.
 3. Format the data for each row into a message `string`.
-4. Create a `JSON` payload for each message using <a href="https://api.slack.com/messaging/composing/layouts#adding-blocks" target="_blank">Slack message blocks</a>
-5. For each message call the Slackbot webhookUrl with the relevant payload. This will send a message for each role in the slack channel.
+4. Create a `JSON` payload for each message using [Slack message blocks](https://api.slack.com/messaging/composing/layouts#adding-blocks) syntax.
+5. For each message call the Slackbot webhookUrl with the relevant payload. This will send a message for each role in the designated slack channel.
 
 ### Column order of spreadsheet
 
-| Account | Assignment Demand | Start Date | Element End Date | Demand status | Utilisation | Demand status - Further information |
-| ----------- | ----------- | ----------- | ----------- | ----------- | ----------- | ----------- |
+The script validates the first 4 column headers by cheking that they match the below:
+
+| Account | Assignment Demand | Start Date | Element End Date
+| ----------- | ----------- | ----------- | ----------- |
 
 ### Slackbot output
 
-**Structure:**
+The script sends the following intro message to Slack:
 
-*Assignment Demand* (1)
-*Account* (0) *Start Date* (2) to *Element End Date* (3)
+:bell: *Hello, here are the latest billable roles we are looking to fill. Please reply in the relevant thread if you're interested in a particular role.*
+
+And follows with one message per role which is structured like this:
+
+*Assignment Demand*
+
+*Account*
+
+*Start Date* to *Element End Date*
 
 **Example:**
 
 Software Engineer_SFIA 1 Academy - DVLA Investment & Account Oversight
-DVLA  27/09/2022 to 30/11/2022
+DVLA
+27/09/2022 to 30/11/2022
 
 ## Developer's guide
-// TO DO
+
 ### Prerequisites
 For local development you will need to install:
 
@@ -40,12 +50,24 @@ For local development you will need to install:
 * [clasp](https://developers.google.com/apps-script/guides/clasp) - clasp is an open source tool that allows you to develop and manage Apps Script projects from your terminal rather than the Apps Script editor.
 
 You will also need to enable the Google Apps Script API because that’s what clasp uses in the background. In order to do this please:
-1. navigate to the Apps Script Settings page,
-2. click on "Google Apps Script API",
-3. toggle the switch to "on".
+1. Navigate to the [Apps Script Settings](https://script.google.com/home/usersettings) page.
+2. Click on "Google Apps Script API".
+3. Toggle the switch to "on".
 
 ### Setting up your local environment
-// TO DO
+
+1. Get the ScriptID from the mother Apps Script project (which needs to have been shared with you beforehand):
+   1. Navigate to [My Projects](https://script.google.com/home/my) or [Shared with me](https://script.google.com/home/shared).
+   2. Find the project and open it.
+   3. Open the project settings (the cog icon on the left hand side).
+   4. Under IDs, find the ScriptID and copy it for later.
+
+2. Clone this repository with `git clone https://github.com/madetech/scheduling-demand-slackbot.git`.
+3. Install clasp with `sudo npm install @google/clasp -g`
+4. Log into clasp with `clasp login`
+5. A window will open, and ask you to choose a google account (make sure you choose the one associated with the spreadsheet)
+6. Click “Allow” on the next screen
+7. Run `clasp clone <script_id>` to connect your local repository with the Google Scripts App project (this is where you paste in the script ID from the Apps Script project)
 
 ### Code changes and deployment
 In order to make a change to the script please follow the steps below:
@@ -86,3 +108,5 @@ This will install the script in your google docs. You can check if it's been ins
 
 ### Running
 // TO DO
+
+### Changing/configuring the Slack app
