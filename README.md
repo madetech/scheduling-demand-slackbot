@@ -1,15 +1,15 @@
 # scheduling-demand-slackbot
 
-Google Apps Script project that gets data from a google spreadsheet, transforms it to create a Slackbot payload and sends one alert per row. It has also been published as a private Sheets Add-on in a Google Cloud Project and is available for Made Tech users through the Google Workspace Marketplace.
+Google Apps Script project that gets data from a google spreadsheet, transforms it to create a Slackbot payload and sends one alert per spreadsheet row. It has also been published as a private Sheets Add-on in a Google Cloud Project and is available to install for Made Tech users through the Google Workspace Marketplace.
 
 // TO DO - add table of contents
 
 ## How it works
-When a spreadsheet is opened, this script adds an item to the add-on menu at: Extensions > Scheduling Demand Slackbot > Send to Slack.
+When a spreadsheet is opened, this script adds an item to the add-on menu at: **Extensions** > **Scheduling Demand Slackbot** > **Send to Slack**.
 
-Clicking on `Send to Slack` triggers the following flow:
-1. Read and store spreadsheet data.
-2. Check that the column headers and column order are as expected (see below). Exit and throw an error if not.
+Clicking on **Send to Slack** triggers the following workflow:
+1. Read the data of the first sheet of the spreadsheet.
+2. Check that the column headers and column order are as expected ([see below](#column-order-of-spreadsheet)). Exit and throw an error if not.
 3. Read spreadsheet data.
 4. Format the data for each row into a message string.
 5. Create a JSON payload for each message using [Slack message blocks](https://api.slack.com/messaging/composing/layouts#adding-blocks).
