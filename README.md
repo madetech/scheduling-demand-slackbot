@@ -2,7 +2,18 @@
 
 Google Apps Script project that gets data from a google spreadsheet, transforms it to create a Slackbot payload and sends one alert per spreadsheet row. It has also been published as a private Sheets Add-on in a Google Cloud Project and is available to install for Made Tech users through the Google Workspace Marketplace.
 
-// TO DO - add table of contents
+## Table of contents
+  - [How it works](#how-it-works)
+    - [Column order of spreadsheet](#column-order-of-spreadsheet)
+    - [Slackbot output](#slackbot-output)
+  - [Developer's guide](#developers-guide)
+    - [Prerequisites](#prerequisites)
+    - [Setting up your local environment](#setting-up-your-local-environment)
+    - [Code changes and deployment](#code-changes-and-deployment)
+    - [Setting up a new Slack channel](#setting-up-a-new-slack-channel)
+  - [User's guide](#users-guide)
+    - [Set up](#set-up)
+    - [Running](#running)
 
 ## How it works
 When a spreadsheet is opened, this script adds an item to the add-on menu at: **Extensions** > **Scheduling Demand Slackbot** > **Send to Slack**.
@@ -38,7 +49,9 @@ And follows with one message per role which is structured like this:
 **Example:**
 
 Software Engineer_SFIA 1 Academy - DVLA Investment & Account Oversight
+
 DVLA
+
 27/09/2022 to 30/11/2022
 
 ## Developer's guide
@@ -68,45 +81,74 @@ You will also need to enable the Google Apps Script API because that’s what cl
 5. A window will open, and ask you to choose a google account (make sure you choose the one associated with the spreadsheet)
 6. Click “Allow” on the next screen
 7. Run `clasp clone <script_id>` to connect your local repository with the Google Scripts App project (this is where you paste in the script ID from the Apps Script project)
+8. This should add three files to the current directory:
+   - A `.clasp.json` file storing the script ID.
+   - An `appsscript.json` project manifest file containing project metadata.
+   - A `script.js` file containing on empty function.
+9. Create a `.claspignore` file and add the following:
+   ```
+   README.md
+   .gitignore
+   .clasp.json
+   ```
 
 ### Code changes and deployment
 In order to make a change to the script please follow the steps below:
-1. make the code change in your local environment,
-2. push the changes to AppScript with `clasp push` (this will allow you to run the code and see the change in action),
-3. make a commit & push to github.
+1. Make the code change in your local environment.
+2. Push the changes to AppScript with `clasp push` (this will allow you to run the code and see the change in action).
+3. Make a commit & push to github.
 
 In oder to deploy the change please follow the steps below:
-1. create a new version in the App Scripts:
-   1. open the app scripts,
-   2. click the arrow on the 'Deploy' button,
-   3. select 'Manage deployments',
-   4. click the pencil icon to go into the edit mode,
-   5. select the 'New version' in the 'Version' dropdown,
-   6. click 'deploy',
-   7. click 'done',
-2. Update the version in the Google Cloud project:
-   1. go to the google cloud project,
-   2. put 'workspace marketplace SDK' in the search box at the top & navigate to it,
-   3. click 'Manage',
-   4. go to 'APP CONFIGURATION',
-   5. put the new version in the 'Sheets Add-on script version' section,
-   6. click 'save'.
+1. Create a new version of the script in the App Scripts project:
+   1. Open the App Scripts project.
+   2. Click the arrow on the 'Deploy' button.
+   3. Select 'Manage deployments'.
+   4. Click the pencil icon to go into the edit mode.
+   5. Select the 'New version' in the 'Version' dropdown.
+   6. Click 'deploy'.
+   7. Click 'done'.
+2. Update the version of the script in the Google Cloud project:
+   1. Go to the Google Cloud project.
+   2. Put 'workspace marketplace SDK' in the search box at the top & navigate to it.
+   3. Click 'Manage'.
+   4. Go to 'APP CONFIGURATION'.
+   5. Put the new version of the script in the 'Sheets Add-on script version' section.
+   6. Click 'save'.
+
+### Setting up a new Slack channel
+
+Make sure you've been added as a collaborator to the "Scheduling Demand Slackbot" app. Then:
+
+1. Set up a new Slack webhook:
+   1. In a browser go to your [Slack apps](https://api.slack.com/apps).
+   2. Click on the app called "Scheduling Demand Slackbot".
+   3. Click on "Incoming Webhooks" (left hand menu).
+   4. If you want to delete the webhook connecting the old Slack channel to the add-on, click on the bin icon of that webhook.
+   5. Click on "Add New Webhook to Workspace".
+   6. Choose the new channel from the dropdown and choose "Allow".
+   7. Copy the new webhook URL.
+
+2. Open the mother Apps Script project.
+3. Navitgate to the project settings and scroll down to "Script Properties".
+4. There should be a property called "WEBHOOK_URL". Paste the new URL into its value field.
+5. Test that everything works by [Running](#running) the script.
+6. Once tested, publish your changes as an add-on (follow [above deploy steps](#code-changes-and-deployment)).
 
 ## User's guide
-// TO DO
 
 ### Set up
 The Add-On only needs to be installed once. In order to do it, please follow the steps below:
-1. open a spreadsheet in Google Docs,
-2. open 'Extensions' > 'Add-ons' > 'Get add-ons' in the top menu,
-3. click 'Internal apps' button,
-4. click 'Scheduling Demand Slackbot',
-5. click 'Install' button,
-6. if prompted, click 'Continue' and give the permissions.
+1. Open a spreadsheet in Google Sheets.
+2. Open 'Extensions' > 'Add-ons' > 'Get add-ons' in the top menu.
+3. Click 'Internal apps' button.
+4. Click 'Scheduling Demand Slackbot'.
+5. Click 'Install' button.
+6. If prompted, click 'Continue' and give the necessary permissions.
 
-This will install the script in your google docs. You can check if it's been installed correctly by clicking on the 'Extensions' in the top menu. Now you should see 'Scheduling Demand Slackbot' menu item. If it doesn't show, please refresh the document and wait a few seconds.
+This will install the script in your Google Sheets. You can check if it's been installed correctly by clicking on the 'Extensions' in the top menu. Now you should see 'Scheduling Demand Slackbot' menu item. If it doesn't show, please refresh the document and wait a few seconds.
 
 ### Running
-// TO DO
 
-### Changing/configuring the Slack app
+Open 'Extensions' > 'Scheduling Demand Slackbot' from the top menu and click 'Send to Slack'.
+
+If you get an error message with the following text "Error: There is a problem with the table headersDetails" ensure that the columns of the spreadsheet are in the correct order and have the right names (see [above](#column-order-of-spreadsheet)).
